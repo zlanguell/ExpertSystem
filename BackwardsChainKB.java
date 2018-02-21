@@ -307,140 +307,137 @@ public class BackwardsChainKB implements IKnowledgeBase{
             case 40:
                 if (variableList.get("prep").compareTo("yes") == 0 && 
                         variableList.get("lights").compareTo("no") == 0 && 
-                                variableList.get("crank").compareTo("no") == 0) {
-                    variableList.replace("fault", "Battery");
+                                variableList.get("crank").compareTo("yes") == 0 &&
+                                    variableList.get("Fuse").compareTo("yes") == 0) {
+                    variableList.replace("fault", "Fuse");
                 }
                 break;
             case 50:
                 if (variableList.get("prep").compareTo("yes") == 0 && 
                         variableList.get("lights").compareTo("no") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0) {
-                    variableList.replace("electronics", "yes");
+                                variableList.get("crank").compareTo("yes") == 0 &&
+                                    variableList.get("fuse").compareTo("no") == 0) {
+                    variableList.replace("fault", "Bulb");
                 }
                 break;
             case 60:
-                if (variableList.get("electronics").compareTo("no")==0&& 
-                        variableList.get("fuse").compareTo("yes")==0) {
-                     variableList.replace("fault", "Fuse");
+                if (variableList.get("prep").compareTo("yes") == 0 && 
+                        variableList.get("lights").compareTo("no") == 0 && 
+                                variableList.get("crank").compareTo("no") == 0 ) {
+                     variableList.replace("fault", "Battery");
                 }
                 break;
             case 70:
-                if (variableList.get("electronics").compareTo("yes")==0&& 
-                        variableList.get("fuse").compareTo("no")==0) {
-                     variableList.replace("fault", "Bulb");
+                if (variableList.get("prep").compareTo("yes") == 0 && 
+                        variableList.get("lights").compareTo("yes") == 0 && 
+                                variableList.get("crank").compareTo("no") == 0) {
+                     variableList.replace("fault", "Starter");
                 }
                 break;
             case 80:
                 if (variableList.get("prep").compareTo("yes") == 0 && 
                         variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0) {
-                    variableList.replace("fault", "Starter");
+                                variableList.get("crank").compareTo("yes") == 0 &&
+                                    variableList.get("start").compareTo("no") == 0) {
+                    variableList.replace("fault", "FuelPump");
                 }
                 break;
             case 90:
                 if (variableList.get("prep").compareTo("yes") == 0 && 
                         variableList.get("lights").compareTo("yes") == 0 && 
                                 variableList.get("crank").compareTo("yes") == 0 &&
-                        variableList.get("start").compareTo("no") == 0) {
-                    variableList.replace("fault", "FuelPump");
-                }
-                break;
-            case 100:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0 &&
-                        variableList.get("start").compareTo("yes") == 0) {
+                                    variableList.get("start").compareTo("yes") == 0) {
                     variableList.replace("runs", "yes");
                 }
                 break;
-            case 110:
+            case 100:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("shift").compareTo("no") == 0) {
                     variableList.replace("fault", "Transmission");
                 }
                 break;
-            case 120:
+            case 110:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("slow").compareTo("yes") == 0) {
                     variableList.replace("braking", "yes");
                 }
                 break;
-            case 130:
+            case 120:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("slow").compareTo("no") == 0 &&
-                        variableList.get("noise").compareTo("yes") == 0) {
+                            variableList.get("noise").compareTo("yes") == 0) {
                      variableList.replace("fault", "Muffler");
                 }
                 break;
-            case 140:
+            case 130:
                 if (variableList.get("braking").compareTo("yes") == 0 &&
                         variableList.get("noise").compareTo("yes") == 0) {
                      variableList.replace("fault", "BrakePad");
                 }
                 break;
-            case 150:
+            case 140:
                 if (variableList.get("braking").compareTo("yes") == 0 &&
                         variableList.get("noise").compareTo("no") == 0) {
                      variableList.replace("fault", "BrakeFluid");
                 }
                 break;
-            case 160:
+            case 150:
                 if (variableList.get("braking").compareTo("yes") == 0 &&
                         variableList.get("steering").compareTo("yes") == 0) {
                 variableList.replace("control", "yes");
                 }
                 break;
-            case 170:
+            case 160:
                 if (variableList.get("control").compareTo("yes") == 0 &&
                         variableList.get("tire").compareTo("no") == 0) {
                      variableList.replace("fault", "Flat");
                 }
                 break;
-            case 180:
+            case 170:
                 if (variableList.get("control").compareTo("yes") == 0 &&
                         variableList.get("tire").compareTo("yes") == 0) {
                       variableList.replace("fault", "Alignment");
                 }
                 break;
-            case 190:
+            case 180:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("smoke").compareTo("yes") == 0 &&
                         variableList.get("hood").compareTo("no") == 0) {
                     variableList.replace("fault", "CatConv");
                 }
                 break;
-            case 200:
+            case 190:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("smoke").compareTo("yes") == 0 &&
                         variableList.get("hood").compareTo("yes") == 0) {
                     variableList.replace("leak", "yes");
                 }
                 break;
-            case 210:
+            case 200:
                 if (variableList.get("leak").compareTo("yes") == 0 &&
                         variableList.get("black").compareTo("yes") == 0) {
                     variableList.replace("fault", "OilLeak");
                 }
                 break;
-            case 220:
+            case 210:
                 if (variableList.get("leak").compareTo("yes") == 0 &&
                         variableList.get("black").compareTo("no") == 0) {
                     variableList.replace("fault", "Radiator");
                 }
                 break;
-            case 230:
+            case 220:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("ac").compareTo("no") == 0) {
                     variableList.replace("fault", "Freon");
                 }
                 break;
-            case 240:
+            case 230:
                 if (variableList.get("runs").compareTo("yes") == 0 &&
                         variableList.get("overheat").compareTo("yes") == 0) {
                     variableList.replace("fault", "Coolant");
                 }
                 break;
-            case 250:
+            case 240:
                 if (variableList.get("runs").compareTo("no") == 0 &&
                         variableList.get("slow").compareTo("no") == 0&&
                         variableList.get("noise").compareTo("no") == 0&&
@@ -449,13 +446,6 @@ public class BackwardsChainKB implements IKnowledgeBase{
                         variableList.get("ac").compareTo("no") == 0&&
                         variableList.get("overheat").compareTo("no") == 0) {
                     variableList.replace("fault", "Unknown");
-                }
-                break;
-            case 260:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0) {
-                    variableList.replace("electronics", "no");
                 }
                 break;
         }
