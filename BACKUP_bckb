@@ -1,0 +1,582 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package expertsystemv2;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author Zachary
+ */
+public class BackwardsChainKB implements IKnowledgeBase {
+    //Number of rules in knowledgebase
+    static final int NUM_OF_RULES = 26;
+    static final String GOAL_VARIABLE = "fault";
+
+    //Maximum number of variables in a rule
+    static final int MAX_VAR_PER_RULE = 8;
+
+    //Conclusion Variable List
+    private String[] conclusionVariableList;
+
+    //Variable List
+    private final Map<String, String> variableList = new HashMap<>();
+
+    //Clause Variable List
+    private String[] clauseVariableList = new String[NUM_OF_RULES * MAX_VAR_PER_RULE];
+
+    //Variable Prompt List
+    private final Map<String, String> variablePromptList = new HashMap<>();
+
+    /**
+     *
+     */
+    public BackwardsChainKB() {
+        //Fill Variable List
+        variableList.put("fault", "none");
+        variableList.put("problem", "none");
+        variableList.put("gas", "none");
+        variableList.put("prep", "none");
+        variableList.put("crank", "none");
+        variableList.put("lights", "none");
+        variableList.put("runs", "none");
+        variableList.put("fuse", "none");
+        variableList.put("start", "none");
+        variableList.put("slow", "none");
+        variableList.put("braking", "none");
+        variableList.put("shift", "none");
+        variableList.put("steering", "none");
+        variableList.put("noise", "none");
+        variableList.put("overheat", "none");
+        variableList.put("ac", "none");
+        variableList.put("smoke", "none");
+        variableList.put("black", "none");
+        variableList.put("tire", "none");
+        variableList.put("front", "none");
+        variableList.put("ridequality", "none");
+        variableList.put("sunroof", "none");
+
+        //Fill Conclusion Variable List
+        conclusionVariableList = new String[NUM_OF_RULES + 1];
+        conclusionVariableList[0] = "";
+        conclusionVariableList[1] = "fault";
+        conclusionVariableList[2] = "fault";
+        conclusionVariableList[3] = "prep";
+        conclusionVariableList[4] = "fault";
+        conclusionVariableList[5] = "fault";
+        conclusionVariableList[6] = "fault";
+        conclusionVariableList[7] = "fault";
+        conclusionVariableList[8] = "fault";
+        conclusionVariableList[9] = "runs";
+        conclusionVariableList[10] = "fault";
+        conclusionVariableList[11] = "fault";
+        conclusionVariableList[12] = "fault";
+        conclusionVariableList[13] = "fault";
+        conclusionVariableList[14] = "fault";
+        conclusionVariableList[15] = "fault";
+        conclusionVariableList[16] = "fault";
+        conclusionVariableList[17] = "fault";
+        conclusionVariableList[18] = "fault";
+        conclusionVariableList[19] = "fault";
+        conclusionVariableList[20] = "fault";
+        conclusionVariableList[21] = "fault";
+        conclusionVariableList[22] = "fault";
+        conclusionVariableList[23] = "fault";
+        conclusionVariableList[24] = "fault";
+        conclusionVariableList[25] = "fault";
+
+        //Fill Clause Variable List
+        //rule 1
+        clauseVariableList[1] = "problem";
+        //rule 2
+        clauseVariableList[11] = "problem";
+        clauseVariableList[11] = "gas";
+        //rule 3
+        clauseVariableList[21] = "problem";
+        clauseVariableList[22] = "gas";
+        //rule 4
+        clauseVariableList[31] = "prep";
+        clauseVariableList[32] = "lights";
+        clauseVariableList[33] = "crank";
+        clauseVariableList[34] = "fuse";
+        //rule 5
+        clauseVariableList[41] = "prep";
+        clauseVariableList[42] = "lights";
+        clauseVariableList[43] = "crank";
+        clauseVariableList[44] = "fuse";
+        //rule 6
+        clauseVariableList[51] = "prep";
+        clauseVariableList[52] = "lights";
+        clauseVariableList[53] = "crank";
+        //rule 7
+        clauseVariableList[61] = "prep";
+        clauseVariableList[62] = "lights";
+        clauseVariableList[63] = "crank";
+        //rule 8
+        clauseVariableList[71] = "prep";
+        clauseVariableList[72] = "lights";
+        clauseVariableList[73] = "crank";
+        clauseVariableList[74] = "start";
+        //rule 9
+        clauseVariableList[81] = "prep";
+        clauseVariableList[82] = "lights";
+        clauseVariableList[83] = "crank";
+        clauseVariableList[84] = "start";
+        //rule 10
+        clauseVariableList[91] = "runs";
+        clauseVariableList[92] = "shift";
+        //rule 11
+        clauseVariableList[101] = "runs";
+        clauseVariableList[102] = "shift";
+        clauseVariableList[103] = "slow";
+        clauseVariableList[104] = "noise";
+        //rule 12
+        clauseVariableList[111] = "runs";
+        clauseVariableList[112] = "shift";
+        clauseVariableList[113] = "slow";
+        clauseVariableList[114] = "noise";
+        //rule 13
+        clauseVariableList[121] = "runs";
+        clauseVariableList[122] = "shift";
+        clauseVariableList[123] = "slow";
+        clauseVariableList[124] = "noise";
+        //rule 14
+        clauseVariableList[131] = "runs";
+        clauseVariableList[132] = "shift";
+        clauseVariableList[133] = "slow";
+        clauseVariableList[134] = "noise";
+        clauseVariableList[135] = "steering";
+        clauseVariableList[136] = "tires";
+        //rule 15
+        clauseVariableList[141] = "runs";
+        clauseVariableList[142] = "shift";
+        clauseVariableList[143] = "slow";
+        clauseVariableList[144] = "noise";
+        clauseVariableList[145] = "steering";
+        clauseVariableList[146] = "tires";
+        //rule 16
+        clauseVariableList[151] = "runs";
+        clauseVariableList[152] = "shift";
+        clauseVariableList[153] = "slow";
+        clauseVariableList[154] = "noise";
+        clauseVariableList[155] = "steering";
+        clauseVariableList[156] = "smoking";
+        clauseVariableList[157] = "front";
+        //rule 17
+        clauseVariableList[161] = "runs";
+        clauseVariableList[162] = "shift";
+        clauseVariableList[163] = "slow";
+        clauseVariableList[164] = "noise";
+        clauseVariableList[165] = "steering";
+        clauseVariableList[166] = "smoking";
+        clauseVariableList[167] = "front";
+        clauseVariableList[168] = "black";
+        //rule 18
+        clauseVariableList[171] = "runs";
+        clauseVariableList[172] = "shift";
+        clauseVariableList[173] = "slow";
+        clauseVariableList[174] = "noise";
+        clauseVariableList[175] = "steering";
+        clauseVariableList[176] = "smoking";
+        clauseVariableList[177] = "front";
+        clauseVariableList[178] = "black";
+        //rule 19
+        clauseVariableList[181] = "runs";
+        clauseVariableList[182] = "shift";
+        clauseVariableList[183] = "slow";
+        clauseVariableList[184] = "noise";
+        clauseVariableList[185] = "steering";
+        clauseVariableList[186] = "smoking";
+        clauseVariableList[187] = "ac";
+        //rule 20
+        clauseVariableList[191] = "runs";
+        clauseVariableList[192] = "shift";
+        clauseVariableList[193] = "slow";
+        clauseVariableList[194] = "noise";
+        clauseVariableList[195] = "steering";
+        clauseVariableList[196] = "smoking";
+        clauseVariableList[197] = "ac";
+        clauseVariableList[198] = "overheat";
+        //rule 21
+        clauseVariableList[201] = "runs";
+        clauseVariableList[202] = "shift";
+        clauseVariableList[203] = "slow";
+        clauseVariableList[204] = "noise";
+        clauseVariableList[205] = "steering";
+        clauseVariableList[206] = "smoking";
+        clauseVariableList[207] = "ac";
+        clauseVariableList[208] = "overheat";
+        clauseVariableList[209] = "radio";
+        //rule 22
+        clauseVariableList[211] = "runs";
+        clauseVariableList[212] = "shift";
+        clauseVariableList[21] = "slow";
+        clauseVariableList[194] = "noise";
+        clauseVariableList[195] = "steering";
+        clauseVariableList[196] = "smoking";
+        clauseVariableList[197] = "ac";
+        clauseVariableList[198] = "overheat";
+        clauseVariableList[199] = "ridequality";
+        //rule 23
+        clauseVariableList[177] = "runs";
+        clauseVariableList[178] = "ac";
+        //rule 24
+        clauseVariableList[185] = "runs";
+        clauseVariableList[186] = "overheat";
+        //rule 25
+        clauseVariableList[193] = "runs";
+        clauseVariableList[194] = "slow";
+        clauseVariableList[195] = "noise";
+        clauseVariableList[196] = "steering";
+        clauseVariableList[197] = "smoke";
+        clauseVariableList[198] = "ac";
+        clauseVariableList[199] = "overheat";
+
+
+        //Variable Prompt List
+        variablePromptList.put("problem", "Is there a problem with your vehicle?");
+        variablePromptList.put("gas", "Is there gas in your vehicle?");
+        variablePromptList.put("crank", "Does your engine crank?");
+        variablePromptList.put("lights", "Are the headlights turning on?");
+        variablePromptList.put("fuse", "Are any fuses blown?");
+        variablePromptList.put("start", "Does your engine start?");
+        variablePromptList.put("slow", "Are you able to slow the vehicle?");
+        variablePromptList.put("shift", "Is the transmission shifting gears?");
+        variablePromptList.put("steering", "Are you having difficulty steering the vehicle?");
+        variablePromptList.put("noise", "Are there any noises?");
+        variablePromptList.put("overheat", "Is the engine overheating");
+        variablePromptList.put("ac", "Is there no Air Conditioning");
+        variablePromptList.put("smoke", "Is there smoke coming from the vehicle?");
+        variablePromptList.put("black", "Is the smoke black?");
+        variablePromptList.put("tire", "Are all the tires inflated?");
+        variablePromptList.put("hood", "Is the smoke coming from the hood?");
+        variablePromptList.put("ridequality", "Is car ride quality good?");
+        variablePromptList.put("sunroof", "Is sunroof working?");
+
+    }
+
+    /**
+     * @param key
+     * @param value
+     */
+    public void setVariable(String key, String value) {
+        variableList.replace(key, value);
+    }
+
+    /**
+     * @param var
+     * @return
+     */
+    public boolean isVariableSet(String var) {
+        return variableList.get(var).compareTo("none") != 0;
+    }
+
+    /**
+     * @return
+     */
+    public String[] getConclusionVarList() {
+        return conclusionVariableList;
+    }
+
+    /**
+     * @param ruleNo
+     * @return
+     */
+    public String[] getClauseVariablesList(int ruleNo) {
+        String[] temp = new String[MAX_VAR_PER_RULE];
+        int counter = 0;
+        ruleNo = ruleNo * MAX_VAR_PER_RULE - (MAX_VAR_PER_RULE - 1);
+        while (clauseVariableList[ruleNo] != null) {
+            temp[counter++] = clauseVariableList[ruleNo++];
+        }
+        String[] result = new String[counter];
+        counter = 0;
+        while (temp[counter] != null) {
+            result[counter] = temp[counter];
+            counter++;
+        }
+        return result;
+    }
+
+    /**
+     * @param var
+     * @return
+     */
+    public String getPrompt(String var) {
+        return variablePromptList.get(var);
+    }
+
+    /**
+     * @return
+     */
+    public String getGoal() {
+        return GOAL_VARIABLE;
+    }
+
+    /**
+     * @return
+     */
+    public String getGoalState() {
+        return variableList.get("fault");
+    }
+
+    //Rule List
+
+    /**
+     * @param ruleNumber
+     */
+    public void evaluateRule(int ruleNumber) {
+        ruleNumber *= 10;
+        switch (ruleNumber) {
+            case 10:
+                if (variableList.get("problem").compareTo("no") == 0) {
+                    variableList.replace("fault", "None");
+                }
+                break;
+            case 20:
+                if (variableList.get("problem").compareTo("yes") == 0 &&
+                        variableList.get("gas").compareTo("no") == 0) {
+                    variableList.replace("fault", "Gas");
+                }
+                break;
+            case 30:
+                if (variableList.get("problem").compareTo("yes") == 0 &&
+                        variableList.get("gas").compareTo("yes") == 0) {
+                    variableList.replace("prep", "yes");
+                }
+                break;
+            case 40:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("no") == 0 &&
+                        variableList.get("crank").compareTo("yes") == 0 &&
+                        variableList.get("fuse").compareTo("yes") == 0) {
+                    variableList.replace("fault", "Fuse");
+                }
+                break;
+            case 50:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("no") == 0 &&
+                        variableList.get("crank").compareTo("yes") == 0 &&
+                        variableList.get("fuse").compareTo("no") == 0) {
+                    variableList.replace("fault", "Bulb");
+                }
+                break;
+            case 60:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("no") == 0 &&
+                        variableList.get("crank").compareTo("no") == 0) {
+                    variableList.replace("fault", "Battery");
+                }
+                break;
+            case 70:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("yes") == 0 &&
+                        variableList.get("crank").compareTo("no") == 0) {
+                    variableList.replace("fault", "Starter");
+                }
+                break;
+            case 80:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("yes") == 0 &&
+                        variableList.get("crank").compareTo("yes") == 0 &&
+                        variableList.get("start").compareTo("no") == 0) {
+                    variableList.replace("fault", "FuelPump");
+                }
+                break;
+            case 90:
+                if (variableList.get("prep").compareTo("yes") == 0 &&
+                        variableList.get("lights").compareTo("yes") == 0 &&
+                        variableList.get("crank").compareTo("yes") == 0 &&
+                        variableList.get("start").compareTo("yes") == 0) {
+                    variableList.replace("runs", "yes");
+                }
+                break;
+            case 100:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("no") == 0) {
+                    variableList.replace("fault", "Transmission");
+                }
+                break;
+            case 110:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("yes") == 0 &&
+                        variableList.get("noise").compareTo("yes") == 0) {
+                    variableList.replace("fault", "BrakePads");
+                }
+                break;
+            case 120:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("yes") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0) {
+                    variableList.replace("fault", "BrakeFluid");
+                }
+                break;
+            case 130:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("yes") == 0) {
+                    variableList.replace("fault", "Muffler");
+                }
+                break;
+            case 140:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("yes") == 0 &&
+                        variableList.get("tires").compareTo("no") == 0) {
+                    variableList.replace("fault", "Flat");
+                }
+                break;
+            case 150:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("yes") == 0 &&
+                        variableList.get("tires").compareTo("yes") == 0) {
+                    variableList.replace("fault", "Alignment");
+                }
+                break;
+            case 160:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("yes") ==0 &&
+                        variableList.get("front").compareTo("no") == 0) {
+                    variableList.replace("fault", "CatCov");
+                }
+                break;
+            case 170:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("yes") ==0 &&
+                        variableList.get("front").compareTo("yes") == 0 &&
+                        variableList.get("black").compareTo("yes") == 0) {
+                    variableList.replace("fault", "OilLeak");
+                }
+                break;
+            case 180:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("yes") ==0 &&
+                        variableList.get("front").compareTo("yes") == 0 &&
+                        variableList.get("black").compareTo("no") == 0) {
+                    variableList.replace("fault", "Radiator");
+                }
+                break;
+            case 190:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("no") == 0){
+                    variableList.replace("fault", "Freon");
+                }
+                break;
+            case 200:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("yes") == 0) {
+                    variableList.replace("fault", "Coolant");
+                }
+                break;
+            case 210:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("no") == 0 &&
+                        variableList.get("radio").compareTo("no")==0) {
+                    variableList.replace("fault", "Speakers");
+                }
+                break;
+            case 220:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("no") == 0 &&
+                        variableList.get("radio").compareTo("yes") == 0 &&
+                        variableList.get("ridequality").compareTo("no") == 0) {
+                    variableList.replace("fault", "Suspension");
+                }
+                break;
+            case 230:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("no") == 0 &&
+                        variableList.get("radio").compareTo("yes") == 0 &&
+                        variableList.get("ridequality").compareTo("yes") == 0 &&
+                        variableList.get("sunroof").compareTo("no") == 0) {
+                    variableList.replace("fault", "Roof Motor");
+                }
+                break;
+            case 240:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("no") == 0 &&
+                        variableList.get("radio").compareTo("yes") == 0 &&
+                        variableList.get("ridequality").compareTo("yes") == 0 &&
+                        variableList.get("sunroof").compareTo("yes") == 0 &&
+                        variableList.get("parking").compareTo("no") == 0){
+                    variableList.replace("fault", "handbrake");
+                }
+                break;
+            case 250:
+                if (variableList.get("runs").compareTo("yes") == 0 &&
+                        variableList.get("shift").compareTo("yes") == 0 &&
+                        variableList.get("slow").compareTo("no") == 0 &&
+                        variableList.get("noise").compareTo("no") == 0 &&
+                        variableList.get("steering").compareTo("no") == 0 &&
+                        variableList.get("smoking").compareTo("no") ==0 &&
+                        variableList.get("ac").compareTo("yes") == 0 &&
+                        variableList.get("overheat").compareTo("no") == 0 &&
+                        variableList.get("radio").compareTo("yes") == 0 &&
+                        variableList.get("ridequality").compareTo("yes") == 0 &&
+                        variableList.get("sunroof").compareTo("yes") == 0 &&
+                        variableList.get("parking").compareTo("yes") == 0){
+                    variableList.replace("fault", "Unknown");
+                }
+                break;
+        }
+    }
+
+}

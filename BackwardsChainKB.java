@@ -9,244 +9,196 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author Zachary
  */
-public class BackwardsChainKB implements IKnowledgeBase{
+public class BackwardsChainKB implements IKnowledgeBase {
     //Number of rules in knowledgebase
-    static final int NUM_OF_RULES = 26;
+    static final int NUM_OF_RULES = 25;
     static final String GOAL_VARIABLE = "fault";
-    
+
     //Maximum number of variables in a rule
-    static final int MAX_VAR_PER_RULE = 8;
-    
+    static final int MAX_VAR_PER_RULE = 2;
+
     //Conclusion Variable List
     private String[] conclusionVariableList;
-    
+
     //Variable List
     private final Map<String, String> variableList = new HashMap<>();
 
     //Clause Variable List
-    private String[] clauseVariableList = new String[NUM_OF_RULES *MAX_VAR_PER_RULE];
-    
+    private String[] clauseVariableList = new String[NUM_OF_RULES * MAX_VAR_PER_RULE];
+
     //Variable Prompt List
     private final Map<String, String> variablePromptList = new HashMap<>();
-    
+
     /**
      *
      */
-    public BackwardsChainKB(){
+    public BackwardsChainKB() {
         //Fill Variable List
-        variableList.put("fault", "none");        
-        variableList.put("problem", "none");
-        variableList.put("gas", "none");
-        variableList.put("prep", "none");
-        variableList.put("crank", "none");
-        variableList.put("lights", "none");
-        variableList.put("electronics", "none");
-        variableList.put("runs", "none");
-        variableList.put("fuse", "none");
-        variableList.put("start", "none");
-        variableList.put("slow", "none");
-        variableList.put("braking", "none");
-        variableList.put("shift", "none");
-        variableList.put("steering", "none");
+        variableList.put("fault", "none"); //
+        variableList.put("prob", "none"); //
+        variableList.put("flat", "none"); //
+        variableList.put("brakes", "none"); //
+        variableList.put("lights", "none"); //
+        variableList.put("ac", "none"); //
+        variableList.put("radio", "none"); //
+        variableList.put("shift", "none"); //
         variableList.put("noise", "none");
-        variableList.put("overheat", "none");
-        variableList.put("ac", "none");
-        variableList.put("smoke", "none");
-        variableList.put("black", "none");
-        variableList.put("leak", "none");
-        variableList.put("tire", "none");
-        variableList.put("control", "none");
-        variableList.put("hood", "none");
-        
+        variableList.put("Prob", "none"); //
+        variableList.put("Flat", "none"); //
+        variableList.put("Brakes", "none"); //
+        variableList.put("Lights", "none"); //
+        variableList.put("AC", "none"); //
+        variableList.put("Radio", "none"); //
+        variableList.put("Shift", "none"); //
+        variableList.put("Noise", "none");
+
         //Fill Conclusion Variable List
-        conclusionVariableList =  new String[NUM_OF_RULES+1];
+        conclusionVariableList = new String[NUM_OF_RULES + 1];
         conclusionVariableList[0] = "";
-        conclusionVariableList[1] = "fault";
+        conclusionVariableList[1] = "Prob";
         conclusionVariableList[2] = "fault";
-        conclusionVariableList[3] = "prep";
-        conclusionVariableList[4] = "fault";
-        conclusionVariableList[5] = "electronics";
-        conclusionVariableList[6] = "fault";
-        conclusionVariableList[7] = "fault";
-        conclusionVariableList[8] = "fault"; 
-        conclusionVariableList[9] = "fault"; 
-        conclusionVariableList[10] = "runs"; 
+        conclusionVariableList[3] = "Prob";
+        conclusionVariableList[4] = "Flat";
+        conclusionVariableList[5] = "fault";
+        conclusionVariableList[6] = "Flat";
+        conclusionVariableList[7] = "Brakes";
+        conclusionVariableList[8] = "fault";
+        conclusionVariableList[9] = "Brakes";
+        conclusionVariableList[10] = "Lights";
         conclusionVariableList[11] = "fault";
-        conclusionVariableList[12] = "braking";
-        conclusionVariableList[13] = "fault";
+        conclusionVariableList[12] = "Lights";
+        conclusionVariableList[13] = "AC";
         conclusionVariableList[14] = "fault";
-        conclusionVariableList[15] = "fault";
-        conclusionVariableList[16] = "control";
+        conclusionVariableList[15] = "AC";
+        conclusionVariableList[16] = "Radio";
         conclusionVariableList[17] = "fault";
-        conclusionVariableList[18] = "fault";
-        conclusionVariableList[19] = "fault";
-        conclusionVariableList[20] = "leak";
-        conclusionVariableList[21] = "fault";
-        conclusionVariableList[22] = "fault";
+        conclusionVariableList[18] = "Radio";
+        conclusionVariableList[19] = "Shift";
+        conclusionVariableList[20] = "fault";
+        conclusionVariableList[21] = "Shift";
+        conclusionVariableList[22] = "Noise";
         conclusionVariableList[23] = "fault";
-        conclusionVariableList[24] = "fault";
+        conclusionVariableList[24] = "Noise";
         conclusionVariableList[25] = "fault";
-        conclusionVariableList[26] = "electronics";
-        
+
         //Fill Clause Variable List
         //rule 1
-        clauseVariableList[1] = "problem";
+        clauseVariableList[1] = "prob";
         //rule 2
-        clauseVariableList[9] = "problem";
-        clauseVariableList[10] = "gas";
+        clauseVariableList[3] = "Prob";
         //rule 3
-        clauseVariableList[17] = "problem";
-        clauseVariableList[18] = "gas";
+        clauseVariableList[5] = "prob";
         //rule 4
-        clauseVariableList[25] = "prep";
-        clauseVariableList[26] = "lights";
-        clauseVariableList[27] = "crank";
+        clauseVariableList[7] = "Prob";
+        clauseVariableList[8] = "flat";
         //rule 5
-        clauseVariableList[33] = "prep";
-        clauseVariableList[34] = "lights";
-        clauseVariableList[35] = "crank";
+        clauseVariableList[9] = "Flat";
         //rule 6
-        clauseVariableList[41] = "electronics";
-        clauseVariableList[42] = "fuse";
+        clauseVariableList[11] = "Prob";
+        clauseVariableList[12] = "flat";
         //rule 7
-        clauseVariableList[49] = "electronics";
-        clauseVariableList[50] = "fuse";
+        clauseVariableList[13] = "Flat";
+        clauseVariableList[14] = "brakes";
         //rule 8
-        clauseVariableList[57] = "prep";
-        clauseVariableList[58] = "lights";
-        clauseVariableList[59] = "crank";
+        clauseVariableList[15] = "Brakes";
         //rule 9
-        clauseVariableList[65] = "prep";
-        clauseVariableList[66] = "lights";
-        clauseVariableList[67] = "crank";
-        clauseVariableList[68] = "start";
+        clauseVariableList[17] = "Flat";
+        clauseVariableList[18] = "brakes";
         //rule 10
-        clauseVariableList[73] = "prep";
-        clauseVariableList[74] = "lights";
-        clauseVariableList[75] = "crank";
-        clauseVariableList[76] = "start";
+        clauseVariableList[19] = "Brakes";
+        clauseVariableList[20] = "lights";
         //rule 11
-        clauseVariableList[81] = "runs";
-        clauseVariableList[82] = "shift";
+        clauseVariableList[21] = "Lights";
         //rule 12
-        clauseVariableList[89] = "runs";
-        clauseVariableList[90] = "slow";
+        clauseVariableList[23] = "Brakes";
+        clauseVariableList[24] = "lights";
         //rule 13
-        clauseVariableList[97] = "runs";
-        clauseVariableList[98] = "slow";
-        clauseVariableList[99] = "noise";
+        clauseVariableList[25] = "Lights";
+        clauseVariableList[26] = "ac";
         //rule 14
-        clauseVariableList[105] = "braking";
-        clauseVariableList[106] = "noise";
+        clauseVariableList[27] = "AC";
         //rule 15
-        clauseVariableList[113] = "braking";
-        clauseVariableList[114] = "noise";
+        clauseVariableList[29] = "Lights";
+        clauseVariableList[30] = "ac";
         //rule 16
-        clauseVariableList[121] = "runs";
-        clauseVariableList[122] = "steering";
+        clauseVariableList[29] = "AC";
+        clauseVariableList[30] = "radio";
         //rule 17
-        clauseVariableList[129] = "control";
-        clauseVariableList[130] = "tire";
+        clauseVariableList[31] = "Radio";
         //rule 18
-        clauseVariableList[137] = "control";
-        clauseVariableList[138] = "tire";
+        clauseVariableList[33] = "AC";
+        clauseVariableList[34] = "radio";
         //rule 19
-        clauseVariableList[145] = "runs";
-        clauseVariableList[146] = "smoke";
-        clauseVariableList[147] = "hood";
-        //rule 20
-        clauseVariableList[153] = "runs";
-        clauseVariableList[154] = "smoke";
-        clauseVariableList[155] = "hood";
-        //rule 21
-        clauseVariableList[161] = "leak";
-        clauseVariableList[162] = "black";
-        //rule 22
-        clauseVariableList[169] = "leak";
-        clauseVariableList[170] = "black";
-        //rule 23
-        clauseVariableList[177] = "runs";
-        clauseVariableList[178] = "ac";
-        //rule 24
-        clauseVariableList[185] = "runs";
-        clauseVariableList[186] = "overheat";
-        //rule 25
-        clauseVariableList[193] = "runs";
-        clauseVariableList[194] = "slow";
-        clauseVariableList[195] = "noise";
-        clauseVariableList[196] = "steering";
-        clauseVariableList[197] = "smoke";
-        clauseVariableList[198] = "ac";
-        clauseVariableList[199] = "overheat";
-        //rule 26
-        clauseVariableList[201] = "prep";
-        clauseVariableList[202] = "lights";
-        clauseVariableList[203] = "crank";
-        
-        //Variable Prompt List
-        variablePromptList.put("problem", "Is there a problem with your vehicle?");
-        variablePromptList.put("gas", "Is there gas in your vehicle?");
-        variablePromptList.put("crank", "Does your engine crank?");
-        variablePromptList.put("lights", "Are the headlights turning on?");
-        variablePromptList.put("fuse", "Are any fuses blown?");
-        variablePromptList.put("start", "Does your engine start?");
-        variablePromptList.put("slow", "Are you able to slow the vehicle?");
-        variablePromptList.put("shift", "Is the transmission shifting gears?");
-        variablePromptList.put("steering", "Are you having difficulty steering the vehicle?");
-        variablePromptList.put("noise", "Are there any noises?");
-        variablePromptList.put("overheat", "Is the engine overheating");
-        variablePromptList.put("ac", "Is there no Air Conditioning");
-        variablePromptList.put("smoke", "Is there smoke coming from the vehicle?");
-        variablePromptList.put("black", "Is the smoke black?");
-        variablePromptList.put("tire", "Are all the tires inflated?");
-        variablePromptList.put("hood", "Is the smoke coming from the hood?");
+        clauseVariableList[35] = "Radio";
+        clauseVariableList[36] = "shift";
 
+        //rule 20
+        clauseVariableList[37] = "Shift";
+        //rule 21
+        clauseVariableList[39] = "Radio";
+        clauseVariableList[40] = "shift";
+        //rule 22
+        clauseVariableList[41] = "Shift";
+        clauseVariableList[42] = "noise";
+        //rule 23
+        clauseVariableList[43] = "Noise";
+        //rule 24
+        clauseVariableList[45] = "Shift";
+        clauseVariableList[46] = "noise";
+        //rule 25
+        clauseVariableList[47] = "Noise";
+
+
+        //Variable Prompt List
+        variablePromptList.put("prob", "Is there a problem with your vehicle?"); //
+        variablePromptList.put("flat", "Are all the tires inflated?"); //
+        variablePromptList.put("brakes", "Are you able to slow the vehicle?"); //
+        variablePromptList.put("lights", "Are the headlights turning on?"); //
+        variablePromptList.put("ac", "Is there no Air Conditioning"); //
+        variablePromptList.put("radio", "Is radio working?"); //
+        variablePromptList.put("shift", "Is the transmission shifting gears?"); //
+        variablePromptList.put("noise", "Are there any noises?"); //
     }
-    
+
     /**
-     *
      * @param key
      * @param value
      */
-    public void setVariable(String key, String value){
-      variableList.replace(key, value);
+    public void setVariable(String key, String value) {
+        variableList.replace(key, value);
     }
-    
+
     /**
-     *
      * @param var
      * @return
      */
-    public boolean isVariableSet(String var){        
+    public boolean isVariableSet(String var) {
         return variableList.get(var).compareTo("none") != 0;
     }
-    
+
     /**
-     *
      * @return
      */
-    public String[] getConclusionVarList(){
+    public String[] getConclusionVarList() {
         return conclusionVariableList;
     }
-    
+
     /**
-     *
      * @param ruleNo
      * @return
      */
-    public String[] getClauseVariablesList(int ruleNo){
+    public String[] getClauseVariablesList(int ruleNo) {
         String[] temp = new String[MAX_VAR_PER_RULE];
         int counter = 0;
-        ruleNo = ruleNo * MAX_VAR_PER_RULE - (MAX_VAR_PER_RULE-1);
-        while(clauseVariableList[ruleNo]!=null){
-            temp[counter++] = clauseVariableList[ruleNo++];    
+        ruleNo = ruleNo * MAX_VAR_PER_RULE - (MAX_VAR_PER_RULE - 1);
+        while (clauseVariableList[ruleNo] != null) {
+            temp[counter++] = clauseVariableList[ruleNo++];
         }
         String[] result = new String[counter];
         counter = 0;
-        while (temp[counter]!=null){
+        while (temp[counter] != null) {
             result[counter] = temp[counter];
             counter++;
         }
@@ -254,197 +206,171 @@ public class BackwardsChainKB implements IKnowledgeBase{
     }
 
     /**
-     *
      * @param var
      * @return
      */
-    public String getPrompt(String var){
+    public String getPrompt(String var) {
         return variablePromptList.get(var);
     }
 
     /**
-     *
      * @return
      */
     public String getGoal() {
         return GOAL_VARIABLE;
     }
-    
+
     /**
-     *
      * @return
      */
-    public String getGoalState(){
-        return variableList.get("fault");
+    public String getGoalState() {
+        return variableList.get(getGoal());
     }
-    
+
     //Rule List
 
     /**
-     *
      * @param ruleNumber
      */
     public void evaluateRule(int ruleNumber) {
-        ruleNumber *=10;
+        ruleNumber *= 10;
         switch (ruleNumber) {
             case 10:
-                if (variableList.get("problem").compareTo("no")==0) {
-                    variableList.replace("fault", "None");
+                if (variableList.get("prob").equals("no")) {
+                    variableList.replace("Prob", "no");
                 }
                 break;
             case 20:
-                if (variableList.get("problem").compareTo("yes") == 0 && 
-                        variableList.get("gas").compareTo("no") == 0) {
-                    variableList.replace("fault", "Gas");
+                if (variableList.get("Prob").equals("no")) {
+                    variableList.replace("fault", "None");
                 }
                 break;
             case 30:
-                if (variableList.get("problem").compareTo("yes") == 0 &&
-                        variableList.get("gas").compareTo("yes") == 0) {
-                    variableList.replace("prep", "yes");
+                if (variableList.get("prob").equals("yes")) {
+                    variableList.replace("Prob", "yes");
                 }
                 break;
             case 40:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("no") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0 &&
-                                    variableList.get("Fuse").compareTo("yes") == 0) {
-                    variableList.replace("fault", "Fuse");
+                if (variableList.get("Prob").equals("yes") &&
+                        variableList.get("flat").equals("yes")) {
+                    variableList.replace("Flat", "yes");
                 }
                 break;
             case 50:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("no") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0 &&
-                                    variableList.get("fuse").compareTo("no") == 0) {
-                    variableList.replace("fault", "Bulb");
+                if (variableList.get("Flat").equals("yes")) {
+                    variableList.replace("fault", "Flat");
                 }
                 break;
             case 60:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("no") == 0 && 
-                                variableList.get("crank").compareTo("no") == 0 ) {
-                     variableList.replace("fault", "Battery");
+                if (variableList.get("Prob").equals("yes") &&
+                        variableList.get("flat").equals("no")) {
+                    variableList.replace("Flat", "no");
                 }
                 break;
             case 70:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("no") == 0) {
-                     variableList.replace("fault", "Starter");
+                if (variableList.get("Flat").equals("no") &&
+                        variableList.get("brakes").equals("yes")) {
+                    variableList.replace("Brakes", "yes");
                 }
                 break;
             case 80:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0 &&
-                                    variableList.get("start").compareTo("no") == 0) {
-                    variableList.replace("fault", "FuelPump");
+                if (variableList.get("Brakes").equals("yes")) {
+                    variableList.replace("fault", "Brakes");
                 }
                 break;
             case 90:
-                if (variableList.get("prep").compareTo("yes") == 0 && 
-                        variableList.get("lights").compareTo("yes") == 0 && 
-                                variableList.get("crank").compareTo("yes") == 0 &&
-                                    variableList.get("start").compareTo("yes") == 0) {
-                    variableList.replace("runs", "yes");
+                if (variableList.get("Flat").equals("no") &&
+                        variableList.get("brakes").equals("no")) {
+                    variableList.replace("Brakes", "no");
                 }
                 break;
             case 100:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("shift").compareTo("no") == 0) {
-                    variableList.replace("fault", "Transmission");
+                if (variableList.get("Brakes").equals("no") &&
+                        variableList.get("lights").equals("yes")) {
+                    variableList.replace("Lights", "yes");
                 }
                 break;
             case 110:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("slow").compareTo("yes") == 0) {
-                    variableList.replace("braking", "yes");
+                if (variableList.get("Lights").equals("yes")) {
+                    variableList.replace("fault", "Lights");
                 }
                 break;
             case 120:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("slow").compareTo("no") == 0 &&
-                            variableList.get("noise").compareTo("yes") == 0) {
-                     variableList.replace("fault", "Muffler");
+                if (variableList.get("Brakes").equals("no") &&
+                        variableList.get("lights").equals("no")) {
+                    variableList.replace("Lights", "no");
                 }
                 break;
             case 130:
-                if (variableList.get("braking").compareTo("yes") == 0 &&
-                        variableList.get("noise").compareTo("yes") == 0) {
-                     variableList.replace("fault", "BrakePad");
+                if (variableList.get("Lights").equals("no") &&
+                        variableList.get("ac").equals("yes")) {
+                    variableList.replace("AC", "yes");
                 }
                 break;
             case 140:
-                if (variableList.get("braking").compareTo("yes") == 0 &&
-                        variableList.get("noise").compareTo("no") == 0) {
-                     variableList.replace("fault", "BrakeFluid");
+                if (variableList.get("AC").equals("yes")) {
+                    variableList.replace("fault", "AC");
                 }
                 break;
             case 150:
-                if (variableList.get("braking").compareTo("yes") == 0 &&
-                        variableList.get("steering").compareTo("yes") == 0) {
-                variableList.replace("control", "yes");
+                if (variableList.get("Lights").equals("no") &&
+                        variableList.get("ac").equals("no")) {
+                    variableList.replace("AC", "no");
                 }
                 break;
             case 160:
-                if (variableList.get("control").compareTo("yes") == 0 &&
-                        variableList.get("tire").compareTo("no") == 0) {
-                     variableList.replace("fault", "Flat");
+                if (variableList.get("AC").equals("no") &&
+                        variableList.get("radio").equals("yes")) {
+                    variableList.replace("Radio", "yes");
                 }
                 break;
             case 170:
-                if (variableList.get("control").compareTo("yes") == 0 &&
-                        variableList.get("tire").compareTo("yes") == 0) {
-                      variableList.replace("fault", "Alignment");
+                if (variableList.get("Radio").equals("yes")) {
+                    variableList.replace("fault", "Radio");
                 }
                 break;
             case 180:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("smoke").compareTo("yes") == 0 &&
-                        variableList.get("hood").compareTo("no") == 0) {
-                    variableList.replace("fault", "CatConv");
+                if (variableList.get("AC").equals("no") &&
+                        variableList.get("radio").equals("no")) {
+                    variableList.replace("Radio", "no");
                 }
                 break;
             case 190:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("smoke").compareTo("yes") == 0 &&
-                        variableList.get("hood").compareTo("yes") == 0) {
-                    variableList.replace("leak", "yes");
+                if (variableList.get("Radio").equals("no") &&
+                        variableList.get("shift").equals("yes")) {
+                    variableList.replace("Shift", "yes");
                 }
                 break;
             case 200:
-                if (variableList.get("leak").compareTo("yes") == 0 &&
-                        variableList.get("black").compareTo("yes") == 0) {
-                    variableList.replace("fault", "OilLeak");
+                if (variableList.get("Shift").equals("yes")) {
+                    variableList.replace("fault", "Shift");
                 }
                 break;
             case 210:
-                if (variableList.get("leak").compareTo("yes") == 0 &&
-                        variableList.get("black").compareTo("no") == 0) {
-                    variableList.replace("fault", "Radiator");
+                if (variableList.get("Radio").equals("no") &&
+                        variableList.get("shift").equals("no")) {
+                    variableList.replace("Shift", "no");
                 }
                 break;
             case 220:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("ac").compareTo("no") == 0) {
-                    variableList.replace("fault", "Freon");
+                if (variableList.get("Shift").equals("no") &&
+                        variableList.get("noise").equals("yes")) {
+                    variableList.replace("Noise", "yes");
                 }
                 break;
             case 230:
-                if (variableList.get("runs").compareTo("yes") == 0 &&
-                        variableList.get("overheat").compareTo("yes") == 0) {
-                    variableList.replace("fault", "Coolant");
+                if (variableList.get("Noise").equals("yes")) {
+                    variableList.replace("fault", "Noise");
                 }
                 break;
             case 240:
-                if (variableList.get("runs").compareTo("no") == 0 &&
-                        variableList.get("slow").compareTo("no") == 0&&
-                        variableList.get("noise").compareTo("no") == 0&&
-                        variableList.get("steering").compareTo("no") == 0&&
-                        variableList.get("smoke").compareTo("no") == 0&&
-                        variableList.get("ac").compareTo("no") == 0&&
-                        variableList.get("overheat").compareTo("no") == 0) {
+                if (variableList.get("Shift").equals("no") &&
+                        variableList.get("noise").equals("no")) {
+                    variableList.replace("Noise", "no");
+                }
+                break;
+            case 250:
+                if (variableList.get("Noise").equals("no")) {
                     variableList.replace("fault", "Unknown");
                 }
                 break;
