@@ -11,13 +11,13 @@ import java.util.Map;
 /**
  * @author Zachary
  */
-public class BackwardsChainKB implements IKnowledgeBase {
+public class BackwardsChainKB  {
     //Number of rules in knowledgebase
     static final int NUM_OF_RULES = 25;
     static final String GOAL_VARIABLE = "fault";
 
     //Maximum number of variables in a rule
-    static final int MAX_VAR_PER_RULE = 2;
+    static final int MAX_VAR_PER_RULE = 3;
 
     //Conclusion Variable List
     private String[] conclusionVariableList;
@@ -87,78 +87,77 @@ public class BackwardsChainKB implements IKnowledgeBase {
         //rule 1
         clauseVariableList[1] = "prob";
         //rule 2
-        clauseVariableList[3] = "Prob";
+        clauseVariableList[4] = "Prob";
         //rule 3
-        clauseVariableList[5] = "prob";
+        clauseVariableList[7] = "prob";
         //rule 4
-        clauseVariableList[7] = "Prob";
-        clauseVariableList[8] = "flat";
+        clauseVariableList[10] = "Prob";
+        clauseVariableList[11] = "flat";
         //rule 5
-        clauseVariableList[9] = "Flat";
-        //rule 6
-        clauseVariableList[11] = "Prob";
-        clauseVariableList[12] = "flat";
-        //rule 7
         clauseVariableList[13] = "Flat";
-        clauseVariableList[14] = "brakes";
+        //rule 6
+        clauseVariableList[16] = "Prob";
+        clauseVariableList[17] = "flat";
+        //rule 7
+        clauseVariableList[19] = "Flat";
+        clauseVariableList[20] = "brakes";
         //rule 8
-        clauseVariableList[15] = "Brakes";
+        clauseVariableList[22] = "Brakes";
         //rule 9
-        clauseVariableList[17] = "Flat";
-        clauseVariableList[18] = "brakes";
+        clauseVariableList[25] = "Flat";
+        clauseVariableList[26] = "brakes";
         //rule 10
-        clauseVariableList[19] = "Brakes";
-        clauseVariableList[20] = "lights";
+        clauseVariableList[28] = "Brakes";
+        clauseVariableList[29] = "lights";
         //rule 11
-        clauseVariableList[21] = "Lights";
+        clauseVariableList[31] = "Lights";
         //rule 12
-        clauseVariableList[23] = "Brakes";
-        clauseVariableList[24] = "lights";
+        clauseVariableList[34] = "Brakes";
+        clauseVariableList[35] = "lights";
         //rule 13
-        clauseVariableList[25] = "Lights";
-        clauseVariableList[26] = "ac";
+        clauseVariableList[37] = "Lights";
+        clauseVariableList[38] = "ac";
         //rule 14
-        clauseVariableList[27] = "AC";
+        clauseVariableList[40] = "AC";
         //rule 15
-        clauseVariableList[29] = "Lights";
-        clauseVariableList[30] = "ac";
+        clauseVariableList[43] = "Lights";
+        clauseVariableList[44] = "ac";
         //rule 16
-        clauseVariableList[29] = "AC";
-        clauseVariableList[30] = "radio";
+        clauseVariableList[46] = "AC";
+        clauseVariableList[47] = "radio";
         //rule 17
-        clauseVariableList[31] = "Radio";
+        clauseVariableList[49] = "Radio";
         //rule 18
-        clauseVariableList[33] = "AC";
-        clauseVariableList[34] = "radio";
+        clauseVariableList[52] = "AC";
+        clauseVariableList[53] = "radio";
         //rule 19
-        clauseVariableList[35] = "Radio";
-        clauseVariableList[36] = "shift";
-
+        clauseVariableList[55] = "Radio";
+        clauseVariableList[56] = "shift";
         //rule 20
-        clauseVariableList[37] = "Shift";
+        clauseVariableList[58] = "Shift";
         //rule 21
-        clauseVariableList[39] = "Radio";
-        clauseVariableList[40] = "shift";
+        clauseVariableList[61] = "Radio";
+        clauseVariableList[62] = "shift";
         //rule 22
-        clauseVariableList[41] = "Shift";
-        clauseVariableList[42] = "noise";
+        clauseVariableList[64] = "Shift";
+        clauseVariableList[65] = "noise";
         //rule 23
-        clauseVariableList[43] = "Noise";
+        clauseVariableList[67] = "Noise";
         //rule 24
-        clauseVariableList[45] = "Shift";
-        clauseVariableList[46] = "noise";
+        clauseVariableList[70] = "Shift";
+        clauseVariableList[71] = "noise";
         //rule 25
-        clauseVariableList[47] = "Noise";
+        clauseVariableList[73] = "Noise";
 
 
         //Variable Prompt List
         variablePromptList.put("prob", "Is there a problem with your vehicle?"); //
-        variablePromptList.put("flat", "Are all the tires inflated?"); //
-        variablePromptList.put("brakes", "Are you able to slow the vehicle?"); //
-        variablePromptList.put("lights", "Are the headlights turning on?"); //
-        variablePromptList.put("ac", "Is there no Air Conditioning"); //
-        variablePromptList.put("radio", "Is radio working?"); //
-        variablePromptList.put("shift", "Is the transmission shifting gears?"); //
+        variablePromptList.put("flat", "Are the tires flat or deflated?"); //
+        variablePromptList.put("brakes", "Are your brakes squeaking?"); //
+        variablePromptList.put("lights", "Are the headlights broken?"); //
+        variablePromptList.put("ac", "Is there a problem with the air conditioning?"); //
+        variablePromptList.put("radio", "Is there a problem with the radio?"); //
+        variablePromptList.put("shift", "Is there a problem with shifting gears?"); //
         variablePromptList.put("noise", "Are there any noises?"); //
     }
 

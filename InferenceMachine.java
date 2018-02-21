@@ -32,7 +32,9 @@ public class InferenceMachine {
     public void start() {
         backwardChain(bKB.getGoal());
         System.out.print("The problem is: " + bKB.getGoalState() + ". \n");
-        forwardChain(bKB.getGoalState());
+        fKB.setVariable(bKB.getGoal(), bKB.getGoalState());
+        forwardChain(bKB.getGoal());
+        System.out.print("The "+fKB.getGoal()+" is: " + fKB.getGoalState() + "\n");
     }
 
     /**
@@ -63,12 +65,25 @@ public class InferenceMachine {
             bKB.setVariable(goal, getUserInput(bKB.getPrompt(goal)));
         }
     }
-    
+
     /**
      *
      * @param start
      */
-    public void forwardChain(String start){
+    public void forwardChain(String var) {
+        String[] clauseVariableList = fKB.getList();        
+        int index = 0;        
+        for (String s: clauseVariableList) {
+            if(fKB.isVariableSet(fKB.getGoal())){
+                break;
+            }
+            if (s != null && s.compareTo(var)==0){
+                fKB.evaluateRule(index++);
+            }else
+            {
+                index++;
+            }
+        }
         
     }
 
@@ -83,7 +98,7 @@ public class InferenceMachine {
         String answer = "";
         while (answer.compareTo("y") != 0 && answer.compareTo("n") != 0) {
             answer = reader.nextLine();
-        }        
+        }
         if (answer.compareTo("y") == 0) {
             return "yes";
         } else {
