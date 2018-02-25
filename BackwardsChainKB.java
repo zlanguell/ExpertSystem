@@ -19,15 +19,15 @@ public class BackwardsChainKB  {
 
     //Variable List
     private final Map<String, String> variableList = new HashMap<>();
-
-    //Clause Variable List
+    
+    //Clause Variable List size is set considering max number of variables per rule
     private String[] clauseVariableList = new String[NUM_OF_RULES * MAX_VAR_PER_RULE];
 
     //Variable Prompt List
     private final Map<String, String> variablePromptList = new HashMap<>();
 
    /**
-     * Initializes variable list, conclusion variable list and clause variable list to defaults.
+     * Initializes variable list, conclusion variable list and clause variable list and prompt list to defaults.
      */
     public BackwardsChainKB() {
         //Fill Variable List
@@ -189,15 +189,15 @@ public class BackwardsChainKB  {
      * @return String Array - An array of clause variables.
      */
     public String[] getClauseVariablesList(int ruleNo) {
-        String[] temp = new String[MAX_VAR_PER_RULE];
+        String[] temp = new String[MAX_VAR_PER_RULE]; //initialze temp array to max number of rules
         int counter = 0;
-        ruleNo = ruleNo * MAX_VAR_PER_RULE - (MAX_VAR_PER_RULE - 1);
-        while (clauseVariableList[ruleNo] != null) {
+        ruleNo = ruleNo * MAX_VAR_PER_RULE - (MAX_VAR_PER_RULE - 1); // get the beginning of array for correspoding rule
+        while (clauseVariableList[ruleNo] != null) { //copy the array to temp
             temp[counter++] = clauseVariableList[ruleNo++];
         }
         String[] result = new String[counter];
         counter = 0;
-        while (temp[counter] != null) {
+        while (temp[counter] != null) { //trim the array of nulls
             result[counter] = temp[counter];
             counter++;
         }
