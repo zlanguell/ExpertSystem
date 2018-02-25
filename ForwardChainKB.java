@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package expertsystemv2;
 
 import java.util.HashMap;
@@ -19,10 +15,10 @@ public class ForwardChainKB {
 
     //Maximum number of antecendents per conclusion
     private static final int NUM_OF_VAR_PER_RULE = 2;
-    
+
     //Goal of KB
     private String goal = "solution";
-    
+
     //Clause Variable List
     private String[] clauseVariableList = new String[(NUM_OF_RULES * NUM_OF_VAR_PER_RULE)+1];
 
@@ -30,7 +26,7 @@ public class ForwardChainKB {
     private final Map<String, String> variableList = new HashMap<>();
 
     //Constructor
-    /**
+    /** Initialize clause variable list and variable list.
      *
      */
     public ForwardChainKB() {
@@ -52,20 +48,23 @@ public class ForwardChainKB {
         //rule 8
         clauseVariableList[15] = "fault";
         //rule 9
-        clauseVariableList[17] = "fault";        
+        clauseVariableList[17] = "fault";
 
         //Populate Variable List
         variableList.put("fault", "none");
         variableList.put("solution", "none");
     }
     //Rule List
-    
+    /** Set existing variable in map to the new value.
+     * @param key String - Key in the map whose value is to be replaced
+     * @param value String - new Value
+     */
     public void setVariable(String key, String value){
-      variableList.replace(key, value);
+        variableList.replace(key, value);
     }
-    /**
-     *
-     * @param ruleNumber
+
+    /** Checks if for given rule number corresponding variables are set to expected value if yes sets new variable
+     * @param ruleNumber int rule number to evaluate
      */
     public void evaluateRule(int ruleNumber) {
         ruleNumber = ((ruleNumber/2)+1)*10;
@@ -74,7 +73,7 @@ public class ForwardChainKB {
                 if (variableList.get("fault").compareTo("None") == 0) {
                     variableList.replace("solution", "No fault requires no solution.");
                 }
-                break;            
+                break;
             case 20:
                 if (variableList.get("fault").compareTo("Flat") == 0) {
                     variableList.replace("solution", "Replace the flat tire.");
@@ -118,15 +117,33 @@ public class ForwardChainKB {
         }
     }
 
+    /** Returns an array of clause variables
+     *
+     * @return String array
+     */
     public String[] getList() {
         return clauseVariableList;
     }
-    
+
+    /** Returns goal variable
+     *
+     * @return String goal variable
+     */
     public String getGoal(){return goal;}
-    
+
+    /**
+     * Returns goal value in variable list
+     *
+     * @return String current value of goal variable in map
+     */
     public String getGoalState(){return variableList.get(getGoal());}
-    
-    public boolean isVariableSet(String var){        
+
+    /**
+     * Checks if variable is not set to "none"
+     * @param var String - Variable to be checked in the map
+     * @return Boolean - True if variable is not set to "none"
+     */
+    public boolean isVariableSet(String var){
         return variableList.get(var).compareTo("none") != 0;
     }
 }
