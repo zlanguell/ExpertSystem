@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package expertsystemv2;
 
 import java.util.HashMap;
@@ -31,8 +26,8 @@ public class BackwardsChainKB  {
     //Variable Prompt List
     private final Map<String, String> variablePromptList = new HashMap<>();
 
-    /**
-     *
+   /**
+     * Initializes variable list, conclusion variable list and clause variable list to defaults.
      */
     public BackwardsChainKB() {
         //Fill Variable List
@@ -162,31 +157,36 @@ public class BackwardsChainKB  {
     }
 
     /**
-     * @param key
-     * @param value
+     * Sets an existing variable in variable list to a new value.
+     *
+     * @param key   String: Key in the map whose value is to be changed
+     * @param value String: New value to be replaced for the corresponding key supplied
      */
     public void setVariable(String key, String value) {
         variableList.replace(key, value);
     }
-
     /**
-     * @param var
-     * @return
+     * Checks if a variable is not set to "none" in variable list
+     *
+     * @param var String - variable to be checked
+     * @return Boolean if variable is set to "none"
      */
     public boolean isVariableSet(String var) {
         return variableList.get(var).compareTo("none") != 0;
     }
 
-    /**
-     * @return
+     /** Returns an array initialized conclusion variables
+     * @return String Array of Conclusion variables
      */
     public String[] getConclusionVarList() {
         return conclusionVariableList;
     }
-
-    /**
-     * @param ruleNo
-     * @return
+    
+   /**
+     * Returns an array of clause variable list corresponding to a particular rule number
+     *
+     * @param ruleNo int - Rule whose clause variable list is required
+     * @return String Array - An array of clause variables.
      */
     public String[] getClauseVariablesList(int ruleNo) {
         String[] temp = new String[MAX_VAR_PER_RULE];
@@ -205,22 +205,28 @@ public class BackwardsChainKB  {
     }
 
     /**
-     * @param var
-     * @return
+     * Returns a prompt string to corresponding variable.
+     *
+     * @param var String: Variable whose prompt has to be returned.
+     * @return String a prompt which can be answered in yes/no format.
      */
     public String getPrompt(String var) {
         return variablePromptList.get(var);
     }
 
     /**
-     * @return
+     * Returns goal variable. Default="fault".
+     *
+     * @return String "fault"
      */
     public String getGoal() {
         return GOAL_VARIABLE;
     }
 
     /**
-     * @return
+     * Returns current state of goal variable.
+     *
+     * @return String "none" if goal variable is not set.
      */
     public String getGoalState() {
         return variableList.get(getGoal());
@@ -229,7 +235,10 @@ public class BackwardsChainKB  {
     //Rule List
 
     /**
-     * @param ruleNumber
+     * Mapped as per the decision tree of the: evaluates a rule and checks if corresponding variables are set to yes/no. And sets
+     * new variables if the conditions are satisfied.
+     *
+     * @param ruleNumber int Rule number.
      */
     public void evaluateRule(int ruleNumber) {
         ruleNumber *= 10;
